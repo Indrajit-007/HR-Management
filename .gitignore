@@ -1,0 +1,39 @@
+# Python bytecode and tooling caches
+__pycache__/
+*.py[oc]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Build artifacts
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Environment variables and local secrets
+.env
+.env.*
+!.env.example
+
+# Runtime-generated application data
+/data/employees.db
+/data/chroma_store/
+
+# Streamlit and editor-local settings
+.streamlit/secrets.toml
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

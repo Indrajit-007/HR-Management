@@ -1,0 +1,21 @@
+# Core Dependencies
+python-dotenv==1.0.0
+langchain==0.3.26
+langchain-groq==0.3.7
+langchain-community==0.3.27
+
+# Vector Store & Embeddings
+chromadb
+sentence-transformers==5.1.0
+
+# Database
+#sqlite3
+
+# UI
+streamlit==1.40.0
+
+# MCP Protocol (Simple Implementation)
+# Note: We'll use a lightweight approach - no official MCP SDK needed for Groq
+
+# Utilities
+requests==2.32.3
