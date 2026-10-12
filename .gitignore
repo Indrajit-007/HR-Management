@@ -1,0 +1,18 @@
+# Root environment file (API keys and local configuration)
+/.env
+
+# Project virtual environment and Python-generated files
+/.venv/
+__pycache__/
+*.py[cod]
+
+# Runtime database and generated Chroma vector store
+/data/employees.db
+/data/chroma_store/
+
+# Next.js generated dependencies and build artifacts
+/nextjs-app/node_modules/
+/nextjs-app/.next/
+/nextjs-app/out/
+/nextjs-app/next-env.d.ts.tmp
+/nextjs-app/*.tsbuildinfo
