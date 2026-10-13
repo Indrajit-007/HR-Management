@@ -24,6 +24,7 @@ function resolveProjectRoot() {
 // RETURNS VIRTUAL ENVIRONMENT PYTHON PATH
 function resolvePython(root: string) {
   if (process.env.MCP_PYTHON) return process.env.MCP_PYTHON;
+  if (process.env.PYTHON) return process.env.PYTHON;
   return process.platform === "win32"
     ? path.join(root, ".venv", "Scripts", "python.exe")
     : path.join(root, ".venv", "bin", "python");

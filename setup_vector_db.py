@@ -1,6 +1,9 @@
 """Build the persisted Chroma vector store used by the RAG MCP server."""
 
 from pathlib import Path
+import os
+
+from dotenv import load_dotenv
 
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_community.vectorstores import Chroma
@@ -9,10 +12,19 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 
 
-PROJECT_ROOT = Path(__file__).resolve().parent
-POLICIES_DIR = PROJECT_ROOT / "data" / "policies"
-ANNOUNCEMENTS_DIR = PROJECT_ROOT / "data" / "announcements"
-CHROMA_DIR = PROJECT_ROOT / "data" / "chroma_store"
+SCRIPT_ROOT = Path(__file__).resolve().parent
+load_dotenv(SCRIPT_ROOT / ".env")
+PROJECT_ROOT = Path(os.getenv("PROJECT_ROOT", str(SCRIPT_ROOT))).expanduser()
+
+
+def configured_path(variable: str, default: str) -> Path:
+    path = Path(os.getenv(variable, default)).expanduser()
+    return (path if path.is_absolute() else PROJECT_ROOT / path).resolve()
+
+
+POLICIES_DIR = configured_path("POLICIES_PATH", "data/policies")
+ANNOUNCEMENTS_DIR = configured_path("ANNOUNCEMENTS_PATH", "data/announcements")
+CHROMA_DIR = configured_path("CHROMA_DIR", "data/chroma_store")
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 

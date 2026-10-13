@@ -9,8 +9,9 @@ from dotenv import load_dotenv
 from mcp.server.fastmcp import FastMCP
 
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-load_dotenv(PROJECT_ROOT / ".env")
+SCRIPT_ROOT = Path(__file__).resolve().parent.parent
+load_dotenv(SCRIPT_ROOT / ".env")
+PROJECT_ROOT = Path(os.getenv("PROJECT_ROOT", str(SCRIPT_ROOT))).expanduser()
 mcp = FastMCP("FilesystemMCPServer")
 
 

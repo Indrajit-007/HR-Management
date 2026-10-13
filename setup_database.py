@@ -1,22 +1,28 @@
 import sqlite3
 import os
+from pathlib import Path
 from datetime import datetime, timedelta
 import random
 
+from dotenv import load_dotenv
 
+SCRIPT_ROOT = Path(__file__).resolve().parent
+load_dotenv(SCRIPT_ROOT / ".env")
+PROJECT_ROOT = Path(os.getenv("PROJECT_ROOT", str(SCRIPT_ROOT))).expanduser()
 
 
 def create_database():
-    
-    db_path = "data/employees.db"
+    configured_path = Path(os.getenv("EMPLOYEE_DB_PATH", "data/employees.db")).expanduser()
+    db_path = configured_path if configured_path.is_absolute() else PROJECT_ROOT / configured_path
+    db_path.parent.mkdir(parents=True, exist_ok=True)
     
     # Remove old database if exists
-    if os.path.exists(db_path):
-        os.remove(db_path)
+    if db_path.exists():
+        db_path.unlink()
         print("Removed old database")
     
     # Create new database
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(str(db_path))
     cursor = conn.cursor()
     
     print("Creating database tables...")

@@ -3,6 +3,7 @@ import json
 import os
 import sys
 from contextlib import AsyncExitStack
+from pathlib import Path
 from typing import Any, Dict
 
 from dotenv import load_dotenv
@@ -11,14 +12,17 @@ from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
 
-load_dotenv()
+load_dotenv(Path(__file__).with_name(".env"))
 
-PYTHON = r"D:\Git\Gen-AI\.venv\Scripts\python.exe"
+PROJECT_ROOT = Path(
+    os.getenv("PROJECT_ROOT", str(Path(__file__).resolve().parent))
+).expanduser()
+PYTHON = os.getenv("PYTHON", sys.executable)
 
 SERVERS = {
-    "database": r"D:\Git\Gen-AI\mcp_servers\database_server.py",
-    "filesystem": r"D:\Git\Gen-AI\mcp_servers\filesystem_server.py",
-    "rag": r"D:\Git\Gen-AI\mcp_servers\rag_server.py",
+    "database": str(PROJECT_ROOT / "mcp_servers" / "database_server.py"),
+    "filesystem": str(PROJECT_ROOT / "mcp_servers" / "filesystem_server.py"),
+    "rag": str(PROJECT_ROOT / "mcp_servers" / "rag_server.py"),
 }
 
 
